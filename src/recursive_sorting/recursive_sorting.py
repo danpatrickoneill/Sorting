@@ -29,15 +29,16 @@ def merge_sort(arr):
     # TO-DO
     if len(arr) <= 1:
         return arr
-    midpoint = len(arr) / 2
-    arr1 = [element
-            for index, element in enumerate(arr) if index < midpoint]
-    arr2 = [element for index, element in enumerate(arr) if index >= midpoint]
-    print(arr1, arr2)
+    midpoint = len(arr) // 2
+    # arr1 = [element
+    #         for index, element in enumerate(arr) if index < midpoint]
+    # arr2 = [element for index, element in enumerate(arr) if index >= midpoint]
+    arr1 = arr[:midpoint]
+    arr2 = arr[midpoint:]
     return merge(merge_sort(arr1), merge_sort(arr2))
 
 
-print(merge_sort(test_arr))
+# print(merge_sort(test_arr))
 
 # Less recursive version
 # def merge_sort(arr):
@@ -54,17 +55,38 @@ print(merge_sort(test_arr))
 
 # STRETCH: implement an in-place merge sort algorithm
 
+test_arr2 = [1, 5, 8, 4, 2, 9, 6, 0, 3, 7]
+
 
 def merge_in_place(arr, start, mid, end):
     # TO-DO
+    print(arr, start, mid, end)
+    while start < end and mid < end:
+        if arr[start] <= arr[mid]:
+            start += 1
+        else:
+            arr.insert(start, arr.pop(mid))
+            start += 1
+            mid += 1
 
     return arr
+
+
+# merge_in_place(test_arr2, 0, len(test_arr2) // 2, len(test_arr2))
 
 
 def merge_sort_in_place(arr, l, r):
     # TO-DO
+    if len(arr) <= 1:
+        return arr
+    midpoint = (l + r) // 2
 
-    return arr
+    arr1 = arr[:midpoint]
+    arr2 = arr[midpoint:]
+    return merge_in_place(arr1 + arr2, l, midpoint, r)
+
+
+print(merge_sort_in_place(test_arr2, 0, len(test_arr2)))
 
 
 # STRETCH: implement the Timsort function below
