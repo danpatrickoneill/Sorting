@@ -45,5 +45,19 @@ def bubble_sort(arr):
 
 
 def count_sort(arr, maximum=-1):
+    d = {}
+    for elem in arr:
+        if elem > maximum:
+            maximum = elem
+        if elem < 0:
+            return "Error, negative numbers not allowed in Count Sort"
+        elif elem in d:
+            d[elem] += 1
+        else:
+            d[elem] = 1
+
+    for i in range(0, maximum + 1):
+        if i not in d:
+            d[i] = 0
 
     return arr
